@@ -52,11 +52,6 @@ server.use((err, req, res, next) => {
     res.status(status).send(message);
 });
 
-// lo ultimo 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/index.html'));
-})
-
 //listener
 server.listen(server.get('port'), () => {
     console.log('server on port', server.get('port'));
