@@ -7,6 +7,7 @@ const express = require ('express');
 const server = express();
 const { dbConnection } = require('./src/databse/config'); 
 var cors = require('cors')
+const path = require('path'); 
 
 //? lista blanca con cors solo permitidos
 // var whitelist = ['http://example1.com', 'http://example2.com']
@@ -24,10 +25,12 @@ dbConnection();
 //settings
 server.set('port', process.env.PORT || 4000);
 
+//@ directorio publ
+server.use(express.static('public'));
+
 //middlewares
 server.use(morgan('dev'));
 server.use(express.json());
-
 server.use(cookieParser());
 server.use(cors()) //? cors para que se pueda hacer peticiones desde otro dominio 
 //? cors options 
@@ -48,6 +51,11 @@ server.use((err, req, res, next) => {
     console.error(err);
     res.status(status).send(message);
 });
+
+// lo ultimo 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+})
 
 //listener
 server.listen(server.get('port'), () => {
