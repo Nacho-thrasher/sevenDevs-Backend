@@ -26,7 +26,8 @@ const createOffer = async (req, res) => {
         const obj = {
             idNft: id,
             idUser: uid,
-            create_date: new Date().toLocaleString(),
+            //? hora del servidor para que no se pueda cambiar la hora de la oferta
+            create_date: new Date().toISOString(),  
             ...req.body //? amount, currency, type
         }
         //? creo la oferta

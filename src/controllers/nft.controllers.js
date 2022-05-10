@@ -300,15 +300,32 @@ const getAllNfts = async (req, res) => {
 };
 
 const createNft = async (req, res) => {
-    
+
     try {
         
-        const obj = { ...req.body, likes: 0 }
+        const obj = { 
+            ...req.body,
+            details:{
+                'user_creator': req.uid,
+                'owner': req.uid,
+                'contract_address': req.body.contract_address
+            },
+            likes: 0 
+        }
         const nft = new Nft(obj);
         await nft.save();
+        const getNft = await Nft.findById(nft._id)
+        .populate('category', { name:1, _id:0})
+        .populate('collection_nft', { name:1, _id:0})
+        .populate('currencies', { name:1, _id:0})
+        .populate('sales_types', { name:1, _id:0})
+        .populate('files_types', { name:1, _id:0})
+        .populate('details.owner', { username:1, _id:0})
+        .populate('details.user_creator', { username:1, _id:0})
+
         res.status(200).json({
             ok: 'true',
-            msg: 'NFT created'
+            nft: getNft
         });
 
     }
