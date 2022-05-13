@@ -7,15 +7,7 @@ const Transactions = Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    username: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
     nftId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Nft'
-    },
-    namenft: {
         type: Schema.Types.ObjectId,
         ref: 'Nft'
     },
@@ -29,7 +21,11 @@ const Transactions = Schema({
     transaction_type: {
         type: Schema.Types.ObjectId,
         ref: 'Transaction_type'
-    }
+    },
+    create_date: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 Transactions.method('toJSON', function () {

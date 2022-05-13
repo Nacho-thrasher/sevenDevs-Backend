@@ -32,6 +32,7 @@ server.use(express.static('public'));
 server.use(morgan('dev'));
 server.use(express.json());
 server.use(cookieParser());
+//? cors para todos los headers y cualquier origen
 server.use(cors()) //? cors para que se pueda hacer peticiones desde otro dominio 
 //? cors options 
 // server.use((req, res, next) => {

@@ -140,7 +140,9 @@ const updateUser =  (req, res) => {
         lastName: user.lastName,
         image: user.image,
         favorite: user.favorite,
-        description: user.description
+        description: user.description,
+        id_wallet: user.id_wallet,
+
     }
 
     User.findByIdAndUpdate( id, newUserInfo, { new: true })
