@@ -152,28 +152,35 @@ const getUser = async (req, res) => {
     
 }
 
-const updateUser =  (req, res) => {
+const updateUser =  async(req, res) => {
     
     const { id } = req.params;
-    const user = req.body;
-    const newUserInfo = {
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        image: user.image,
-        favorite: user.favorite,
-        description: user.description,
-        id_wallet: user.id_wallet,
-
-    }
-
-    User.findByIdAndUpdate( id, newUserInfo, { new: true })
-          .then(result => {
-              res.json(result)
-          })
-          .catch(e => console.log(e))
-}
-       
+    try {
+        const user = req.body;
+        // const newUserInfo = {
+        //     //? todo menos password
+        //     username: user.username,
+        //     firstName: user.firstName,
+        //     lastName: user.lastName,
+        //     image: user.image,
+        //     favorite: user.favorite,
+        //     description: user.description,
+        //     id_wallet: user.id_wallet,
+        // }
+        const update = await User.findByIdAndUpdate( id, user, { new: true })
+        res.json({
+            ok: true,
+            update
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'Unexpected error'
+        });
+    }    
+    
+}       
 
 const deleteUser = async (req, res) => {
 
