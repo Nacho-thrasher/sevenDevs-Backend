@@ -51,6 +51,9 @@ const Nft = Schema({
         type: Schema.Types.ObjectId,
         ref: 'Files_types'  
     },
+    publicated: {
+        type: Boolean
+    }
 });
 Nft.method('toJSON', function () {
     const { __v, ...object } = this.toObject();

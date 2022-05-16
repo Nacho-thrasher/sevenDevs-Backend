@@ -119,11 +119,14 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     const { id } = req.params;
     try {
+        // agregate by id
         const user = await User.findById(id)
-        .populate('user_type', 'name')
-        .populate('favorite', 'name')
-        .populate('collectionNft', 'name')
-        
+            .populate('user_type', 'name')
+            .populate('favorite')
+            .populate('collectionNft', 'name')
+            .exec();
+
+
         //? traer nfts del usuario en details owner 
         const nfts = await Nfts.find({ 'details.owner': id })
         .populate('details.user_creator', 'username')
