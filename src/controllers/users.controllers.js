@@ -93,6 +93,8 @@ const getUsers = async (req, res) => {
             .skip(start)
             .limit(limit)
             .populate('user_type', 'name')
+            .populate('favorite', 'name')
+            .populate('collectionNft', 'name')
             .exec();
         const total = await User.countDocuments();
         const countPages = Math.ceil(total / limit);
@@ -117,8 +119,28 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await User.findById(id);
-        res.json(user)
+        const user = await User.findById(id)
+        .populate('user_type', 'name')
+        .populate('favorite', 'name')
+        .populate('collectionNft', 'name')
+        
+        //? traer nfts del usuario en details owner 
+        const nfts = await Nfts.find({ 'details.owner': id })
+        .populate('details.user_creator', 'username')
+        .populate('details.owner', 'username')
+        .populate('collection_nft', 'name')
+        .populate('category', 'name')
+        .populate('sales_types', 'name')
+        .populate('currencies', 'name')
+        .populate('files_types', 'name')
+        //? contar nfts del usuario en details owner
+        const countNfts = await Nfts.countDocuments({ 'details.owner': id })
+
+        res.json({
+            user, 
+            nfts,
+            countNfts
+        })
 
     } catch (error) {
         console.log(error)
