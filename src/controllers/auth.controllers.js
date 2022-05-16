@@ -3,6 +3,8 @@ const Usuario = require("../models/User.js");
 const User_type = require("../models/User_type.js");
 const { generateJwt } = require('../helpers/generateJwt');
 const { googleVerify } = require('../helpers/google-verify');
+const Nfts = require("../models/Nft.js");
+
 
 const login = async (req, res) => {
     //? login comun por ahora
@@ -97,10 +99,26 @@ const renewToken = async (req, res) => {
 
     const uid = req.uid;
     const token = await generateJwt(uid);
-    const usuario = await Usuario.findById(uid).populate('user_type', 'name');
+    const usuario = await Usuario.findById(uid)
+    .populate('user_type', 'name')
+    .populate('favorite')
+    .populate('collectionNft', 'name')
+
+    const nfts = await Nfts.find({ 'details.owner': uid })
+    .populate('details.user_creator', 'username')
+    .populate('details.owner', 'username')
+    .populate('collection_nft', 'name')
+    .populate('category', 'name')
+    .populate('sales_types', 'name')
+    .populate('currencies', 'name')
+    .populate('files_types', 'name')
+    const countNfts = await Nfts.countDocuments({ 'details.owner': id })
+
     res.json({
         ok: true,
         usuario,
+        nfts,
+        countNfts,
         token
     });
 };
