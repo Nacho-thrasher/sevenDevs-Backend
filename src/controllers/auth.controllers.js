@@ -112,7 +112,7 @@ const renewToken = async (req, res) => {
     .populate('sales_types', 'name')
     .populate('currencies', 'name')
     .populate('files_types', 'name')
-    const countNfts = await Nfts.countDocuments({ 'details.owner': id })
+    const countNfts = await Nfts.countDocuments({ 'details.owner': uid })
 
     res.json({
         ok: true,
