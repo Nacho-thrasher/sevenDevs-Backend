@@ -382,6 +382,7 @@ const putNftUpdate = async (req, res) => {
                     user: userPull
                 });
             }
+
             else {
                 const user = await User.findByIdAndUpdate(req.uid, { $push: { favorite: id } }, { new: true })
                 .populate('user_type', 'name')
@@ -414,6 +415,7 @@ const putNftUpdate = async (req, res) => {
         });
     }
 };
+
 
 const deleteNft = async (req, res) => {
     const { id } = req.params;
