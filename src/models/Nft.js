@@ -53,10 +53,7 @@ const Nft = Schema({
     },
     publicated: {
         type: Boolean
-    },
-    token_id: {
-        type: Number
-    },
+    }
 });
 Nft.method('toJSON', function () {
     const { __v, ...object } = this.toObject();

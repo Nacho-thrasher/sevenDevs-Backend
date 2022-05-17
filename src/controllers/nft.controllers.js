@@ -321,7 +321,8 @@ const createNft = async (req, res) => {
             details:{
                 'user_creator': req.uid,
                 'owner': req.uid,
-                'contract_address': req.body.contract_address
+                'contract_address': req.body.contract_address,
+                'token_id': req.body.token_id
             },
             likes: 0,
             create_date: new Date()
