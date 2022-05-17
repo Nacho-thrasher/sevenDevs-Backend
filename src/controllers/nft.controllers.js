@@ -101,28 +101,35 @@ const getAllNfts = async (req, res) => {
                     description: 1,
                     details: {
                         user_creator: {
+                            _id: 1,
                             username: 1
                         },
                         owner: {
+                            _id: 1,
                             username: 1
                         },
                         contract_address: 1,
                         token_id: 1
                     },
                     category: {
+                        _id: 1,
                         name: 1
                     },
                     collection_nft: {
+                        _id: 1,
                         name: 1
                     },
                     currencies: {
+                        _id: 1,
                         name: 1,
                         image: 1
                     },
                     sales_types: {
+                        _id: 1,
                         name: 1
                     },
                     files_types: {
+                        _id: 1,
                         name: 1
                     },
                     create_date: 1,
@@ -146,7 +153,6 @@ const getAllNfts = async (req, res) => {
             limit: parseInt(req.query.limit) || total,
             sort: req.query.sort || 'create_date'
         }
-        const countPages = Math.ceil(total / pagination.limit);
         const getAllNfts = await Nft.aggregate([
             //? skip limit 
             { $skip: (pagination.page - 1) * pagination.limit },
@@ -252,28 +258,35 @@ const getAllNfts = async (req, res) => {
                     description: 1,
                     details: {
                         user_creator: {
+                            _id: 1,
                             username: 1
                         },
                         owner: {
+                            _id: 1,
                             username: 1
                         },
                         contract_address: 1,
                         token_id: 1
                     },
                     category: {
+                        _id: 1,
                         name: 1
                     },
                     collection_nft: {
+                        _id: 1,
                         name: 1
                     },
                     currencies: {
+                        _id: 1,
                         name: 1,
                         image: 1
                     },
                     sales_types: {
+                        _id: 1,
                         name: 1
                     },
                     files_types: {
+                        _id: 1,
                         name: 1
                     },
                     create_date: 1,
