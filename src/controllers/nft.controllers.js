@@ -323,7 +323,8 @@ const createNft = async (req, res) => {
                 'owner': req.uid,
                 'contract_address': req.body.contract_address
             },
-            likes: 0 
+            likes: 0,
+            create_date: new Date()
         }
         const nft = new Nft(obj);
         await nft.save();
