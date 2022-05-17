@@ -1,4 +1,5 @@
 const Transactions = require('../models/Transactions');
+const Nft = require ('../models/Nft');
 
 const getAllTransactions = async (req, res) => {
     try {
@@ -21,7 +22,11 @@ const getAllTransactions = async (req, res) => {
 
 const createTransaction = async (req, res) => {
     try {
-    
+        const nftId = req.body.nftId;
+        //? modificar sales_types nft id
+        const sales_types = req.body.sales_types;
+        await Nft.findByIdAndUpdate(nftId, {sales_types: sales_types});
+
         const newTransaction = new Transactions(req.body);
         await newTransaction.save();
         const getNewTransaction = await Transactions.findById(newTransaction._id)
