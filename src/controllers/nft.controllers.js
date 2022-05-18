@@ -414,11 +414,45 @@ const putNftUpdate = async (req, res) => {
 
         }
         else {
-            const nft = await Nft.findByIdAndUpdate(id, req.body, { new: true });
-            res.status(200).json({
-                ok: 'true',
-                nft
-            });
+
+            // const getNft = await Nft.findById(id)
+            // .populate('category', { _id:1})
+            // .populate('collection_nft', { _id:1})
+            // .populate('currencies', { _id:1})
+            // .populate('sales_types', { _id:1})
+            // .populate('files_types', { _id:1})
+            
+            
+            // if (req.body.details) {
+                
+            //     getNft.details = {
+            //         ...getNft.details,
+            //         ...req.body.details
+            //     }
+
+            //     return res.status(200).json({
+            //         ok: 'true',
+            //         getNft
+            //     })
+            // }
+            if(req.body.owner){
+                
+                const nft = await Nft.findByIdAndUpdate(id, {'details.owner': req.body.owner}, { new: true });
+                return res.status(200).json({
+                    ok: 'true',
+                    nft
+                })
+
+            }
+            else{
+
+                const nft = await Nft.findByIdAndUpdate(id, req.body, { new: true });
+                return res.status(200).json({
+                    ok: 'true',
+                    nft
+                })
+
+            }
         }
 
 
