@@ -45,7 +45,7 @@ const UserSchema = Schema({
     money_sales: {
         type: Number
     },
-    id_wallet: {
+    wallet: {
         type: String
     },
     //? estado del usuario confirmacion de mail
