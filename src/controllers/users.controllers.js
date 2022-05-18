@@ -28,6 +28,7 @@ const createUser = async (req, res) => {
             email,
             password,
             user_type: user_type._id,
+            wallet,
             image: 'https://res.cloudinary.com/hysmatafuegos/image/upload/v1651516047/sevenDevs/avatardefault_92824_s6mwzv.png'
         });
         //? encriptar password
@@ -43,25 +44,25 @@ const createUser = async (req, res) => {
                 pass: 'mtlsdatewtbcwhbf'
             }
         });
-        const mailOptions = {
-            from: "SevenDevsNfts <",
-            to: usuario.email,
-            subject: 'Confirmation of registration',
-            text: 'Hello ' + usuario.firstName + ' ' + usuario.lastName + '\n\n' +
-                'Thank you for registering on SevenDevsNfts.\n' +
-                'To confirm your registration, please click on the following link:\n\n' +
-                'http://localhost:3000/confirmar/' + usuario._id + '\n\n' +
-                "If it doesn't work, copy and paste the link into your browser.\n\n" +
-                'Thank you,\n' +
-                'SevenDevsNfts'
-        };
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
+        // const mailOptions = {
+        //     from: "SevenDevsNfts <",
+        //     to: usuario.email,
+        //     subject: 'Confirmation of registration',
+        //     text: 'Hello ' + usuario.firstName + ' ' + usuario.lastName + '\n\n' +
+        //         'Thank you for registering on SevenDevsNfts.\n' +
+        //         'To confirm your registration, please click on the following link:\n\n' +
+        //         'http://localhost:3000/confirmar/' + usuario._id + '\n\n' +
+        //         "If it doesn't work, copy and paste the link into your browser.\n\n" +
+        //         'Thank you,\n' +
+        //         'SevenDevsNfts'
+        // };
+        // transporter.sendMail(mailOptions, function (error, info) {
+        //     if (error) {
+        //         console.log(error);
+        //     } else {
+        //         console.log('Email sent: ' + info.response);
+        //     }
+        // });
         //? generar jwt
         const token = await generateJwt(usuario.id);
         //? respuesta
