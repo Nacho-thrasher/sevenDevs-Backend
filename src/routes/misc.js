@@ -4,10 +4,11 @@ deleteCategory, deleteCollection, deleteCurrencies, deleteFiles_types, deleteSal
 modifyCategorie, modifyCollection, modifyCurrencies, modifyFiles_types, modifySales_types, getCategory,
  getCollection, getCurrencies, getFiles_types, getSales_types, getTransactions_Types, createTransaction_type,
  modifyTransaction_type, deleteTransaction_type } = require('../controllers/misc.controllers')
+ const { validarJwt } = require('../middlewares/validarJwt.js');
 
 
 router.post('/category', createCategory);
-router.post('/collection', createCollection);
+router.post('/collection', validarJwt, createCollection);
 router.post('/currencies', createCurrencies);
 router.post('/files_type', createFiles_types);
 router.post('/sales_type', createSales_types);

@@ -33,8 +33,9 @@ const UserSchema = Schema({
         type: [Schema.Types.ObjectId],
         ref: 'Nft'
     },
-    collectionNft: {
-        type: Array
+    collection_nft: { //? collection de nft
+        type: [Schema.Types.ObjectId],
+        ref: 'Collection_nft'  
     },
     description: {
         type: String

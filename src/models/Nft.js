@@ -29,7 +29,7 @@ const Nft = Schema({
         type: String
     },
     collection_nft: { //? collection de nft
-        type: Schema.Types.ObjectId,
+        type: [Schema.Types.ObjectId],
         ref: 'Collection_nft'  
     },
     category: {
@@ -50,9 +50,6 @@ const Nft = Schema({
     files_types: {
         type: Schema.Types.ObjectId,
         ref: 'Files_types'  
-    },
-    publicated: {
-        type: Boolean
     }
 });
 Nft.method('toJSON', function () {

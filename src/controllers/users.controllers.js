@@ -124,9 +124,8 @@ const getUser = async (req, res) => {
         const user = await User.findById(id)
             .populate('user_type', 'name')
             .populate('favorite')
-            .populate('collectionNft', 'name')
+            .populate('collection_nft')
             .exec();
-
 
         //? traer nfts del usuario en details owner 
         const nfts = await Nfts.find({ 'details.owner': id })

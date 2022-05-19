@@ -4,6 +4,7 @@ const Currencies = require('../models/Currencies');
 const Files_types = require('../models/Files_types');
 const Sales_types = require('../models/Sales_types');
 const Transaction_type = require('../models/Transaction_type');
+const User = require('../models/User');
 
 const getCategory = async (req, res) => {
     try {
@@ -94,10 +95,14 @@ const createCollection = async (req, res) => {
     try {
         const newCollection = new Collection(req.body);
         await newCollection.save();
+        console.log(req.uid);
+        const updateUser = await User.findByIdAndUpdate(req.uid, { $push: { collection_nft: newCollection._id } }, { new: true });
+
         res.status(200).json({
             ok: true,
             msg: 'Collection created',
-            newCollection
+            newCollection,
+            updateUser
         });
     } catch (error) {
         res.status(500).json({
