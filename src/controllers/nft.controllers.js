@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Nft = require ('../models/Nft');
+const Transactions = require('../models/Transactions');
 
 const getAllNfts = async (req, res) => {
     try {
@@ -360,15 +361,16 @@ const getNftById = async (req, res) =>{
     try {
     
         const getById = await Nft.findById(id)
-            .populate('category', { name:1, _id:0})
-            .populate('collection_nft', { name:1, _id:0})
-            .populate('currencies', { name:1, _id:0})
-            .populate('sales_types', { name:1, _id:0})
-            .populate('files_types', { name:1, _id:0})
-            .populate('details.owner', { username:1, _id:0})
-            .populate('details.user_creator', { username:1, _id:0})
-        res.status(200).json( getById );   
-    
+        .populate('category', { name:1, _id:0})
+        .populate('collection_nft', { name:1, _id:0})
+        .populate('currencies', { name:1, _id:0})
+        .populate('sales_types', { name:1, _id:0})
+        .populate('files_types', { name:1, _id:0})
+        .populate('details.owner', { username:1, _id:0})
+        .populate('details.user_creator', { username:1, _id:0})
+        
+        return res.status(200).json( getById );   
+            
     } catch (error) {
         res.status(404).json({
             ok: 'false',
