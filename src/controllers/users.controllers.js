@@ -95,7 +95,7 @@ const getUsers = async (req, res) => {
             .limit(limit)
             .populate('user_type', 'name')
             .populate('favorite', 'name')
-            .populate('collectionNft', 'name')
+            .populate('collection_nft', 'name')
             .exec();
         const total = await User.countDocuments();
         const countPages = Math.ceil(total / limit);

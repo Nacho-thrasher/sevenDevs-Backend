@@ -102,7 +102,7 @@ const renewToken = async (req, res) => {
     const usuario = await Usuario.findById(uid)
     .populate('user_type', 'name')
     .populate('favorite')
-    .populate('collectionNft', 'name')
+    .populate('collection_nft', 'name')
 
     const nfts = await Nfts.find({ 'details.owner': uid })
     .populate('details.user_creator', 'username')
