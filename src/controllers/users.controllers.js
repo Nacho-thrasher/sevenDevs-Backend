@@ -28,7 +28,6 @@ const createUser = async (req, res) => {
             email,
             password,
             user_type: user_type._id,
-            wallet,
             image: 'https://res.cloudinary.com/hysmatafuegos/image/upload/v1651516047/sevenDevs/avatardefault_92824_s6mwzv.png'
         });
         //? encriptar password
