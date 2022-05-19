@@ -117,7 +117,8 @@ const getAllNfts = async (req, res) => {
                     },
                     collection_nft: {
                         _id: 1,
-                        name: 1
+                        name: 1,
+                        image:1 
                     },
                     currencies: {
                         _id: 1,
@@ -274,7 +275,8 @@ const getAllNfts = async (req, res) => {
                     },
                     collection_nft: {
                         _id: 1,
-                        name: 1
+                        name: 1,
+                        image:1
                     },
                     currencies: {
                         _id: 1,
@@ -331,7 +333,7 @@ const createNft = async (req, res) => {
         await nft.save();
         const getNft = await Nft.findById(nft._id)
         .populate('category', { name:1, _id:0})
-        .populate('collection_nft')
+        .populate('collection_nft', { name:1, _id:0, image:1})
         .populate('currencies')
         .populate('sales_types', { name:1, _id:0})
         .populate('files_types', { name:1, _id:0})
