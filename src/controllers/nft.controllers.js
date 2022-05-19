@@ -331,8 +331,8 @@ const createNft = async (req, res) => {
         await nft.save();
         const getNft = await Nft.findById(nft._id)
         .populate('category', { name:1, _id:0})
-        .populate('collection_nft', { name:1, _id:0})
-        .populate('currencies', { name:1, _id:0})
+        .populate('collection_nft')
+        .populate('currencies')
         .populate('sales_types', { name:1, _id:0})
         .populate('files_types', { name:1, _id:0})
         .populate('details.owner', { username:1, _id:0})
@@ -387,8 +387,13 @@ const putNftUpdate = async (req, res) => {
                 
                 const userPull = await User.findByIdAndUpdate(req.uid, { $pull: { favorite: id } }, { new: true })
                 .populate('user_type', 'name')
-                .populate('favorite', 'name');
+                .populate('favorite', 'name')
+                const getNft = await Nft.findById(id)
+                //? si likes = 0 no restar mas 
+                // if(nftLikes.likes === 0){
+
                 const obj = { ...req.body, likes: nftLikes.likes - 1 }
+
                 const nftLike = await Nft.findByIdAndUpdate(id, obj, { new: true });
             
                 return res.status(200).json({
